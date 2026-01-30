@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pharmacy_report_admin,access.pharmacy.report.admin,model_pharmacy_report,pharmacy_core.group_pharmacy_admin,1,0,0,0
+access_pharmacy_report_wizard_admin,access.pharmacy.report.wizard.admin,model_pharmacy_report_wizard,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_pharmacy_report_wizard_stock,access.pharmacy.report.wizard.stock,model_pharmacy_report_wizard,pharmacy_core.group_pharmacy_stock,1,1,1,1

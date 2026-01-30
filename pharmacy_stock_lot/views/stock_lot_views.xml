@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Stock Lot Tree View Extension -->
+        <record id="view_stock_lot_tree_pharmacy" model="ir.ui.view">
+            <field name="name">stock.lot.tree.pharmacy</field>
+            <field name="model">stock.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="expiration_date" optional="show"/>
+                    <field name="days_until_expiry" optional="show"/>
+                    <field name="alert_status" optional="show" 
+                           decoration-success="alert_status == 'ok'"
+                           decoration-warning="alert_status == 'warning'"
+                           decoration-danger="alert_status == 'expired'"/>
+                    <field name="expired" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Stock Lot Form View Extension -->
+        <record id="view_stock_lot_form_pharmacy" model="ir.ui.view">
+            <field name="name">stock.lot.form.pharmacy</field>
+            <field name="model">stock.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <!-- Add alert banner for expired lots -->
+                <xpath expr="//sheet" position="before">
+                    <div class="alert alert-danger text-center" role="alert" 
+                         invisible="alert_status != 'expired'">
+                        <strong>⚠️ EXPIRED LOT - CANNOT BE SOLD</strong>
+                    </div>
+                    <div class="alert alert-warning text-center" role="alert" 
+                         invisible="alert_status != 'warning'">
+                        <strong>⚠ Near Expiry - [[days_until_expiry]] days remaining</strong>
+                    </div>
+                </xpath>
+                
+                <!-- Add pharmacy fields -->
+                <xpath expr="//group[@name='main_group']" position="inside">
+                    <group string="Expiry Management" name="expiry_group" invisible="not is_drug_lot">
+                        <field name="is_drug_lot" invisible="1"/>
+                        <field name="expiration_date" required="is_drug_lot"/>
+                        <field name="alert_threshold_days"/>
+                        <field name="days_until_expiry" readonly="1"/>
+                        <field name="expired" readonly="1"/>
+                        <field name="alert_status" readonly="1"
+                               decoration-success="alert_status == 'ok'"
+                               decoration-warning="alert_status == 'warning'"
+                               decoration-danger="alert_status == 'expired'"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Stock Lot Search View Extension -->
+        <record id="view_stock_lot_search_pharmacy" model="ir.ui.view">
+            <field name="name">stock.lot.search.pharmacy</field>
+            <field name="model">stock.lot</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='on_hand']" position="after">
+                    <separator/>
+                    <filter string="Drug Lots" name="filter_drug_lots" 
+                            domain="[('is_drug_lot', '=', True)]"/>
+                    <filter string="Expired" name="filter_expired" 
+                            domain="[('expired', '=', True)]"/>
+                    <filter string="Near Expiry" name="filter_near_expiry" 
+                            domain="[('alert_status', '=', 'warning')]"/>
+                    <filter string="OK" name="filter_ok" 
+                            domain="[('alert_status', '=', 'ok')]"/>
+                </xpath>
+                <xpath expr="//group" position="inside">
+                    <filter string="Alert Status" name="group_alert_status" 
+                            domain="[]" context="{'group_by': 'alert_status'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Pharmacy Lots Action -->
+        <record id="action_pharmacy_lots" model="ir.actions.act_window">
+            <field name="name">Pharmacy Lots</field>
+            <field name="res_model">stock.lot</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_drug_lot', '=', True)]</field>
+            <field name="context">{'search_default_filter_drug_lots': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No pharmacy lots found
+                </p>
+                <p>
+                    Lots are created automatically when receiving pharmaceutical products.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_pharmacy_lots"
+                  name="Lots &amp; Expiry"
+                  parent="pharmacy_core.menu_pharmacy_root"
+                  sequence="20"/>
+
+        <menuitem id="menu_pharmacy_lots_all"
+                  name="All Lots"
+                  parent="menu_pharmacy_lots"
+                  action="action_pharmacy_lots"
+                  sequence="1"/>
+
+        <menuitem id="menu_pharmacy_lots_expired"
+                  name="Expired Lots"
+                  parent="menu_pharmacy_lots"
+                  action="action_pharmacy_lots"
+                  sequence="2"/>
+
+    </data>
+</odoo>

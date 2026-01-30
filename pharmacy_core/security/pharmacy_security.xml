@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- Module Category for Pharmacy -->
+        <record id="module_category_pharmacy" model="ir.module.category">
+            <field name="name">Pharmacy</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <!-- Pharmacy Admin Group -->
+        <record id="group_pharmacy_admin" model="res.groups">
+            <field name="name">Pharmacy Administrator</field>
+            <field name="category_id" ref="module_category_pharmacy"/>
+            <field name="comment">Full access to all pharmacy operations including configuration</field>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Pharmacy Sales Group -->
+        <record id="group_pharmacy_sales" model="res.groups">
+            <field name="name">Pharmacy Sales Staff</field>
+            <field name="category_id" ref="module_category_pharmacy"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Sales operations only, no price modification</field>
+        </record>
+
+        <!-- Pharmacy Stock Manager Group -->
+        <record id="group_pharmacy_stock" model="res.groups">
+            <field name="name">Pharmacy Stock Manager</field>
+            <field name="category_id" ref="module_category_pharmacy"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Purchases, inventory adjustments, no financial reports</field>
+        </record>
+
+        <!-- Access Rules for Drug Categories -->
+        <record id="pharmacy_drug_category_admin_rule" model="ir.rule">
+            <field name="name">Pharmacy Drug Category: Admin Full Access</field>
+            <field name="model_id" ref="model_pharmacy_drug_category"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_pharmacy_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="pharmacy_drug_category_sales_rule" model="ir.rule">
+            <field name="name">Pharmacy Drug Category: Sales Read Access</field>
+            <field name="model_id" ref="model_pharmacy_drug_category"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_pharmacy_sales'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="pharmacy_drug_category_stock_rule" model="ir.rule">
+            <field name="name">Pharmacy Drug Category: Stock Manager Read Access</field>
+            <field name="model_id" ref="model_pharmacy_drug_category"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_pharmacy_stock'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

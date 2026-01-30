@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_lot_admin,access.stock.lot.admin,stock.model_stock_lot,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_stock_lot_sales,access.stock.lot.sales,stock.model_stock_lot,pharmacy_core.group_pharmacy_sales,1,0,0,0
+access_stock_lot_stock,access.stock.lot.stock,stock.model_stock_lot,pharmacy_core.group_pharmacy_stock,1,1,1,0
+access_stock_move_line_admin,access.stock.move.line.admin,stock.model_stock_move_line,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_stock_move_line_sales,access.stock.move.line.sales,stock.model_stock_move_line,pharmacy_core.group_pharmacy_sales,1,1,1,0
+access_stock_move_line_stock,access.stock.move.line.stock,stock.model_stock_move_line,pharmacy_core.group_pharmacy_stock,1,1,1,0

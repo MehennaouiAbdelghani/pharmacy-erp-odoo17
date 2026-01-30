@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pharmacy_core
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-29 00:00+0000\n"
+"PO-Revision-Date: 2026-01-29 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. module: pharmacy_core
+#: model:ir.model.fields,field_description:pharmacy_core.field_pharmacy_drug_category__name
+msgid "Category Name"
+msgstr "اسم التصنيف"
+
+#. module: pharmacy_core
+#: model:ir.model.fields,field_description:pharmacy_core.field_product_template__drug_type
+msgid "Drug Type"
+msgstr "نوع الدواء"
+
+#. module: pharmacy_core
+#: model:ir.model.fields,field_description:pharmacy_core.field_product_template__is_drug
+msgid "Is a Drug"
+msgstr "هو دواء"
+
+#. module: pharmacy_core
+#: model:ir.ui.menu,name:pharmacy_core.menu_pharmacy_root
+msgid "Pharmacy"
+msgstr "الصيدلية"
+
+#. module: pharmacy_core
+#: model:ir.ui.menu,name:pharmacy_core.menu_pharmacy_configuration
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: pharmacy_core
+#: model:ir.ui.menu,name:pharmacy_core.menu_pharmacy_categories
+msgid "Drug Categories"
+msgstr "تصنيفات الأدوية"
+
+#. module: pharmacy_core
+#: selection:product.template,drug_type:0
+msgid "Over The Counter (OTC)"
+msgstr "بدون وصفة طبية"
+
+#. module: pharmacy_core
+#: selection:product.template,drug_type:0
+msgid "Prescription Required"
+msgstr "يتطلب وصفة طبية"
+
+#. module: pharmacy_core
+#: selection:product.template,drug_type:0
+msgid "Narcotic/Controlled Substance"
+msgstr "مخدر / مادة خاضعة للرقابة"
+
+#. module: pharmacy_core
+#: model:ir.model.fields,field_description:pharmacy_core.field_product_template__scientific_name
+msgid "Scientific Name"
+msgstr "الاسم العلمي"

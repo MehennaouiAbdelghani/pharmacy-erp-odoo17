@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_admin,access.sale.order.admin,sale.model_sale_order,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_sale_order_sales,access.sale.order.sales,sale.model_sale_order,pharmacy_core.group_pharmacy_sales,1,1,1,0
+access_sale_order_line_admin,access.sale.order.line.admin,sale.model_sale_order_line,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_sale_order_line_sales,access.sale.order.line.sales,sale.model_sale_order_line,pharmacy_core.group_pharmacy_sales,1,1,1,0

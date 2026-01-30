@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pharmacy_drug_category_admin,access.pharmacy.drug.category.admin,model_pharmacy_drug_category,group_pharmacy_admin,1,1,1,1
+access_pharmacy_drug_category_sales,access.pharmacy.drug.category.sales,model_pharmacy_drug_category,group_pharmacy_sales,1,0,0,0
+access_pharmacy_drug_category_stock,access.pharmacy.drug.category.stock,model_pharmacy_drug_category,group_pharmacy_stock,1,1,1,0

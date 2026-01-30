@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Cron Job 1: Daily Expiry Alert (02:00) -->
+        <record id="cron_pharmacy_expiry_alert" model="ir.cron">
+            <field name="name">Pharmacy: Daily Expiry Alert</field>
+            <field name="model_id" ref="model_pharmacy_alert_cron"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_expiry_alert()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+            <field name="priority">5</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <!-- Run at 02:00 -->
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=2, minute=0, second=0)"/>
+        </record>
+
+        <!-- Cron Job 2: Daily Low Stock Alert (02:00) -->
+        <record id="cron_pharmacy_low_stock" model="ir.cron">
+            <field name="name">Pharmacy: Daily Low Stock Alert</field>
+            <field name="model_id" ref="model_pharmacy_alert_cron"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_low_stock_alert()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+            <field name="priority">5</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <!-- Run at 02:00 (5 minutes after expiry alert) -->
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).replace(hour=2, minute=5, second=0)"/>
+        </record>
+
+        <!-- Cron Job 3: Monthly Dead Stock Detection -->
+        <record id="cron_pharmacy_dead_stock" model="ir.cron">
+            <field name="name">Pharmacy: Monthly Dead Stock Detection</field>
+            <field name="model_id" ref="model_pharmacy_alert_cron"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_dead_stock_detection()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+            <field name="priority">10</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <!-- Run on 1st of month at 03:00 -->
+            <field name="nextcall" eval="(DateTime.now().replace(day=1) + timedelta(days=32)).replace(day=1, hour=3, minute=0, second=0)"/>
+        </record>
+
+    </data>
+</odoo>

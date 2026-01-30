@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Pharmacy Main Menu -->
+        <menuitem id="menu_pharmacy_root"
+                  name="Pharmacy"
+                  sequence="10"
+                  web_icon="pharmacy_core,static/description/icon.png"
+                  groups="group_pharmacy_admin,group_pharmacy_sales,group_pharmacy_stock"/>
+
+        <!-- Configuration Menu -->
+        <menuitem id="menu_pharmacy_configuration"
+                  name="Configuration"
+                  parent="menu_pharmacy_root"
+                  sequence="100"
+                  groups="group_pharmacy_admin"/>
+
+        <!-- Products Menu -->
+        <menuitem id="menu_pharmacy_products"
+                  name="Products"
+                  parent="menu_pharmacy_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_pharmacy_products_all"
+                  name="All Products"
+                  parent="menu_pharmacy_products"
+                  action="action_pharmacy_products"
+                  sequence="1"/>
+
+        <menuitem id="menu_pharmacy_drug_categories"
+                  name="Drug Categories"
+                  parent="menu_pharmacy_configuration"
+                  action="action_pharmacy_drug_category"
+                  sequence="1"/>
+
+    </data>
+</odoo>

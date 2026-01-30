@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Report: Expired Loss -->
+        <record id="action_report_expired_loss" model="ir.actions.report">
+            <field name="name">Expired Drugs Loss Report</field>
+            <field name="model">pharmacy.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pharmacy_reports.report_expired_loss_document</field>
+            <field name="report_file">pharmacy_reports.report_expired_loss_document</field>
+            <field name="binding_model_id" ref="model_pharmacy_report_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Report: Profit per Product -->
+        <record id="action_report_profit" model="ir.actions.report">
+            <field name="name">Profit per Product Report</field>
+            <field name="model">pharmacy.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pharmacy_reports.report_profit_document</field>
+            <field name="report_file">pharmacy_reports.report_profit_document</field>
+            <field name="binding_model_id" ref="model_pharmacy_report_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

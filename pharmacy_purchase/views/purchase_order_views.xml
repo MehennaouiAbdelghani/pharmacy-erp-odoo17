@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Purchase Order Form View Extension -->
+        <record id="view_purchase_order_form_pharmacy" model="ir.ui.view">
+            <field name="name">purchase.order.form.pharmacy</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="has_drug_products" invisible="1"/>
+                    <field name="drug_product_count" invisible="1"/>
+                </xpath>
+                
+                <!-- Add warning for drug products -->
+                <xpath expr="//sheet" position="before">
+                    <div class="alert alert-info text-center" role="alert" 
+                         invisible="not has_drug_products or state == 'done'">
+                        <strong>ℹ️ This order contains [[drug_product_count]] pharmaceutical product(s)</strong><br/>
+                        <span>Lot number and expiry date are mandatory on receipt.</span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Purchase Order Line Tree Extension -->
+        <record id="view_purchase_order_line_tree_pharmacy" model="ir.ui.view">
+            <field name="name">purchase.order.line.tree.pharmacy</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="is_drug_line" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Menu in Pharmacy -->
+        <menuitem id="menu_pharmacy_purchase"
+                  name="Purchase"
+                  parent="pharmacy_core.menu_pharmacy_root"
+                  sequence="30"
+                  groups="pharmacy_core.group_pharmacy_admin,pharmacy_core.group_pharmacy_stock"/>
+
+        <menuitem id="menu_pharmacy_purchase_orders"
+                  name="Purchase Orders"
+                  parent="menu_pharmacy_purchase"
+                  action="purchase.purchase_form_action"
+                  sequence="1"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Report Wizard Form -->
+        <record id="view_pharmacy_report_wizard_form" model="ir.ui.view">
+            <field name="name">pharmacy.report.wizard.form</field>
+            <field name="model">pharmacy.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generate Pharmacy Report">
+                    <group>
+                        <group>
+                            <field name="report_type" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_print_report" string="Generate Report" 
+                                type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Report Wizard Action -->
+        <record id="action_pharmacy_report_wizard" model="ir.actions.act_window">
+            <field name="name">Generate Reports</field>
+            <field name="res_model">pharmacy.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Reports Menu -->
+        <menuitem id="menu_pharmacy_reports"
+                  name="Reports"
+                  parent="pharmacy_core.menu_pharmacy_root"
+                  sequence="95"
+                  groups="pharmacy_core.group_pharmacy_admin"/>
+
+        <menuitem id="menu_pharmacy_reports_generate"
+                  name="Generate Reports"
+                  parent="menu_pharmacy_reports"
+                  action="action_pharmacy_report_wizard"
+                  sequence="1"/>
+
+    </data>
+</odoo>

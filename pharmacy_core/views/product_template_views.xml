@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Product Template Form View Extension -->
+        <record id="view_product_template_form_pharmacy" model="ir.ui.view">
+            <field name="name">product.template.form.pharmacy</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <!-- Add Pharmacy tab after General Information -->
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page string="Pharmacy" name="pharmacy" invisible="not is_drug">
+                        <group>
+                            <group string="Drug Information">
+                                <field name="is_drug" invisible="1"/>
+                                <field name="drug_type" required="is_drug"/>
+                                <field name="scientific_name"/>
+                                <field name="pharmacy_category_id"/>
+                            </group>
+                            <group string="Stock Management">
+                                <field name="min_qty"/>
+                            </group>
+                        </group>
+                        <group string="Tracking Information">
+                            <div class="alert alert-info">
+                                <strong>Lot Tracking:</strong> Automatically enabled for all pharmaceutical products.
+                                This is mandatory for expiry date management and cannot be disabled.
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+                
+                <!-- Add is_drug field in general information -->
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="is_drug" widget="boolean_toggle"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Product Template Tree View Extension -->
+        <record id="view_product_template_tree_pharmacy" model="ir.ui.view">
+            <field name="name">product.template.tree.pharmacy</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_drug" optional="show"/>
+                    <field name="drug_type" optional="hide"/>
+                    <field name="scientific_name" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Product Template Search View Extension -->
+        <record id="view_product_template_search_pharmacy" model="ir.ui.view">
+            <field name="name">product.template.search.pharmacy</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="scientific_name"/>
+                    <field name="pharmacy_category_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='inactive']" position="before">
+                    <separator/>
+                    <filter string="Drugs Only" name="filter_drugs" domain="[('is_drug', '=', True)]"/>
+                    <filter string="OTC Drugs" name="filter_otc" domain="[('drug_type', '=', 'otc')]"/>
+                    <filter string="Prescription Drugs" name="filter_prescription" 
+                            domain="[('drug_type', '=', 'prescription')]"/>
+                    <filter string="Narcotics" name="filter_narcotic" domain="[('drug_type', '=', 'narcotic')]"/>
+                </xpath>
+                <xpath expr="//filter[@name='categ_id']" position="after">
+                    <filter string="Pharmacy Category" name="group_pharmacy_category" 
+                            domain="[]" context="{'group_by': 'pharmacy_category_id'}"/>
+                    <filter string="Drug Type" name="group_drug_type" 
+                            domain="[]" context="{'group_by': 'drug_type'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Pharmacy Products Action -->
+        <record id="action_pharmacy_products" model="ir.actions.act_window">
+            <field name="name">Pharmacy Products</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('is_drug', '=', True)]</field>
+            <field name="context">{'default_is_drug': True, 'default_tracking': 'lot'}</field>
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first pharmaceutical product
+                </p>
+                <p>
+                    All pharmaceutical products require lot tracking for expiry management.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

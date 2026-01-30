@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Alert Dashboard Menu -->
+        <menuitem id="menu_pharmacy_alerts"
+                  name="Alerts &amp; Monitoring"
+                  parent="pharmacy_core.menu_pharmacy_root"
+                  sequence="90"
+                  groups="pharmacy_core.group_pharmacy_admin,pharmacy_core.group_pharmacy_stock"/>
+
+        <!-- Activities Menu Item -->
+        <menuitem id="menu_pharmacy_activities"
+                  name="My Activities"
+                  parent="menu_pharmacy_alerts"
+                  action="mail.mail_activity_action"
+                  sequence="1"/>
+
+    </data>
+</odoo>

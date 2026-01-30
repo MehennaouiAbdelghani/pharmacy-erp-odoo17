@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Product Template Form View - Add FIFO Status -->
+        <record id="view_product_template_form_fifo" model="ir.ui.view">
+            <field name="name">product.template.form.fifo</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="pharmacy_core.view_product_template_form_pharmacy"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='pharmacy']" position="inside">
+                    <group string="FIFO Strategy" name="fifo_group" invisible="not is_drug">
+                        <label for="id" string="Removal Strategy"/>
+                        <div>
+                            <span>FIFO (First In, First Out) - Automatic</span>
+                            <p class="text-muted">
+                                Products with nearest expiry date will be sold first.
+                            </p>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

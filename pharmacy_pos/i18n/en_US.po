@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pharmacy_pos
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-29 00:00+0000\n"
+"PO-Revision-Date: 2026-01-29 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: pharmacy_pos
+#: model:ir.ui.view,arch_db:pharmacy_pos.pos_config_view_form
+msgid "Pharmacy Features"
+msgstr "Pharmacy Features"
+
+#. module: pharmacy_pos
+#: model:ir.ui.view,arch_db:pharmacy_pos.pos_config_view_form
+msgid "Automatic FIFO"
+msgstr "Automatic FIFO"
+
+#. module: pharmacy_pos
+#: model:ir.ui.view,arch_db:pharmacy_pos.pos_config_view_form
+msgid "Pharmaceutical products automatically use lots with nearest expiry date."
+msgstr "Pharmaceutical products automatically use lots with nearest expiry date."
+
+#. module: pharmacy_pos
+#: model:ir.ui.view,arch_db:pharmacy_pos.pos_config_view_form
+msgid "Expiry Validation"
+msgstr "Expiry Validation"
+
+#. module: pharmacy_pos
+#: model:ir.ui.view,arch_db:pharmacy_pos.pos_config_view_form
+msgid "Expired lots cannot be sold through POS."
+msgstr "Expired lots cannot be sold through POS."

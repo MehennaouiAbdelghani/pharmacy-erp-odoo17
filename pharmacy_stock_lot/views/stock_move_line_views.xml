@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Stock Move Line Form View Extension -->
+        <record id="view_stock_move_line_form_pharmacy" model="ir.ui.view">
+            <field name="name">stock.move.line.form.pharmacy</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_id']" position="after">
+                    <field name="lot_expiration_date" readonly="1" 
+                           invisible="not is_drug_move"/>
+                    <field name="is_expired" readonly="1" invisible="1"/>
+                    <field name="is_drug_move" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Stock Move Line Tree View Extension -->
+        <record id="view_stock_move_line_tree_pharmacy" model="ir.ui.view">
+            <field name="name">stock.move.line.tree.pharmacy</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lot_id']" position="after">
+                    <field name="lot_expiration_date" optional="hide"/>
+                    <field name="is_expired" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

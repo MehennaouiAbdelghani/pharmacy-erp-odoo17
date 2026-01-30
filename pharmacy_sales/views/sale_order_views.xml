@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Sale Order Form Extension -->
+        <record id="view_sale_order_form_pharmacy" model="ir.ui.view">
+            <field name="name">sale.order.form.pharmacy</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!-- Add profit indicator -->
+                <xpath expr="//field[@name='tax_totals']" position="after">
+                    <field name="total_profit" widget="monetary" 
+                           invisible="not has_drug_products"/>
+                    <field name="has_drug_products" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Sale Order Line Tree Extension -->
+        <record id="view_sale_order_line_tree_pharmacy" model="ir.ui.view">
+            <field name="name">sale.order.line.tree.pharmacy</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_subtotal']" position="after">
+                    <field name="cost_price" optional="hide" groups="pharmacy_core.group_pharmacy_admin"/>
+                    <field name="profit_amount" optional="show" groups="pharmacy_core.group_pharmacy_admin"/>
+                    <field name="profit_margin" optional="hide" groups="pharmacy_core.group_pharmacy_admin" 
+                           widget="percentage"/>
+                    <field name="is_drug_line" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Menu in Pharmacy -->
+        <menuitem id="menu_pharmacy_sales"
+                  name="Sales"
+                  parent="pharmacy_core.menu_pharmacy_root"
+                  sequence="15"
+                  groups="pharmacy_core.group_pharmacy_admin,pharmacy_core.group_pharmacy_sales"/>
+
+        <menuitem id="menu_pharmacy_sales_orders"
+                  name="Sales Orders"
+                  parent="menu_pharmacy_sales"
+                  action="sale.action_orders"
+                  sequence="1"/>
+
+    </data>
+</odoo>

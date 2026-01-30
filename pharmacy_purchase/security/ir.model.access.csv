@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_order_admin,access.purchase.order.admin,purchase.model_purchase_order,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_purchase_order_stock,access.purchase.order.stock,purchase.model_purchase_order,pharmacy_core.group_pharmacy_stock,1,1,1,0
+access_stock_picking_admin,access.stock.picking.admin,stock.model_stock_picking,pharmacy_core.group_pharmacy_admin,1,1,1,1
+access_stock_picking_stock,access.stock.picking.stock,stock.model_stock_picking,pharmacy_core.group_pharmacy_stock,1,1,1,0

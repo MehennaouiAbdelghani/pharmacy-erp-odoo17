@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_expired_loss_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Expired Drugs Loss Report</h2>
+                        <p>Period: <span t-field="doc.date_from"/> to <span t-field="doc.date_to"/></p>
+                        <p>Generated: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/></p>
+                        
+                        <t t-set="expired_lots" t-value="doc._get_expired_lots()"/>
+                        
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Lot Number</th>
+                                    <th>Expiry Date</th>
+                                    <th>Quantity Lost</th>
+                                    <th>Unit Cost</th>
+                                    <th>Total Loss</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_loss" t-value="0"/>
+                                <t t-foreach="expired_lots" t-as="lot">
+                                    <t t-set="loss_value" t-value="lot.product_qty * lot.product_id.standard_price"/>
+                                    <t t-set="total_loss" t-value="total_loss + loss_value"/>
+                                    <tr>
+                                        <td><span t-field="lot.product_id.name"/></td>
+                                        <td><span t-field="lot.name"/></td>
+                                        <td><span t-field="lot.expiration_date"/></td>
+                                        <td><span t-field="lot.product_qty"/></td>
+                                        <td><span t-field="lot.product_id.standard_price"/> <span t-field="lot.product_id.currency_id.symbol"/></td>
+                                        <td><span t-esc="'%.2f' % loss_value"/> <span t-field="lot.product_id.currency_id.symbol"/></td>
+                                    </tr>
+                                </t>
+                                <tr class="font-weight-bold">
+                                    <td colspan="5" class="text-right">Total Loss:</td>
+                                    <td><span t-esc="'%.2f' % total_loss"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <p class="text-muted mt-3">
+                            <strong>Note:</strong> This report shows pharmaceutical products that expired during the selected period.
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
